@@ -12,40 +12,40 @@ uint8_t str_flag = 0;
  *******************************************************************************/
 void UART1_Configuration(void)
 {
-		GPIO_InitTypeDef GPIO_InitStruct;
-		USART_InitTypeDef USART_InitStruct;
-	
-		//Enable clock
-		RCC_AHB1PeriphClockCmd(UART1_TX_PORT_RCC | UART1_RX_PORT_RCC, ENABLE);
-    RCC_APB2PeriphClockCmd(UART1_PERIPH_RCC, ENABLE);
-	
-		//GPIO_config
-		GPIO_InitStruct.GPIO_Mode  	= GPIO_Mode_AF;
-    GPIO_InitStruct.GPIO_OType 	= GPIO_OType_PP;
-    GPIO_InitStruct.GPIO_PuPd  	= GPIO_PuPd_UP;
-    GPIO_InitStruct.GPIO_Speed 	= GPIO_Speed_50MHz;
-	
-		GPIO_InitStruct.GPIO_Pin   	= UART1_TX_PIN;
-		GPIO_Init(UART1_TX_PORT, &GPIO_InitStruct);
-	
-		GPIO_InitStruct.GPIO_Pin   	= UART1_RX_PIN;
-		GPIO_Init(UART1_RX_PORT, &GPIO_InitStruct);
-    
-		GPIO_PinAFConfig(UART1_TX_PORT, UART1_TX_PIN_SOURCE, GPIO_AF_USART1);
-    GPIO_PinAFConfig(UART1_TX_PORT, UART1_RX_PIN_SOURCE, GPIO_AF_USART1);
-	
-		//USART1_config
-		USART_DeInit(USART1);
-		USART_InitStruct.USART_BaudRate        			= 115200;//921600;
-		USART_InitStruct.USART_StopBits   					= USART_StopBits_1;
-		USART_InitStruct.USART_WordLength 					= USART_WordLength_8b;
-	  USART_InitStruct.USART_Parity 							= USART_Parity_No;
-    USART_InitStruct.USART_HardwareFlowControl 	= USART_HardwareFlowControl_None;
-    USART_InitStruct.USART_Mode 								= USART_Mode_Rx | USART_Mode_Tx;
-		USART_OverSampling8Cmd(USART1, ENABLE);
-    USART_Init(USART1, &USART_InitStruct);
-		USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
-		USART_Cmd(USART1, ENABLE);
+	GPIO_InitTypeDef GPIO_InitStruct;
+	USART_InitTypeDef USART_InitStruct;
+
+	//Enable clock
+	RCC_AHB1PeriphClockCmd(UART1_TX_PORT_RCC | UART1_RX_PORT_RCC, ENABLE);
+	RCC_APB2PeriphClockCmd(UART1_PERIPH_RCC, ENABLE);
+
+	//GPIO_config
+	GPIO_InitStruct.GPIO_Mode  	= GPIO_Mode_AF;
+	GPIO_InitStruct.GPIO_OType 	= GPIO_OType_PP;
+	GPIO_InitStruct.GPIO_PuPd  	= GPIO_PuPd_UP;
+	GPIO_InitStruct.GPIO_Speed 	= GPIO_Speed_50MHz;
+
+	GPIO_InitStruct.GPIO_Pin   	= UART1_TX_PIN;
+	GPIO_Init(UART1_TX_PORT, &GPIO_InitStruct);
+
+	GPIO_InitStruct.GPIO_Pin   	= UART1_RX_PIN;
+	GPIO_Init(UART1_RX_PORT, &GPIO_InitStruct);
+
+	GPIO_PinAFConfig(UART1_TX_PORT, UART1_TX_PIN_SOURCE, GPIO_AF_USART1);
+	GPIO_PinAFConfig(UART1_TX_PORT, UART1_RX_PIN_SOURCE, GPIO_AF_USART1);
+
+	//USART1_config
+	USART_DeInit(USART1);
+	USART_InitStruct.USART_BaudRate        		= 115200;//921600;
+	USART_InitStruct.USART_StopBits   			= USART_StopBits_1;
+	USART_InitStruct.USART_WordLength 			= USART_WordLength_8b;
+	USART_InitStruct.USART_Parity 				= USART_Parity_No;
+	USART_InitStruct.USART_HardwareFlowControl 	= USART_HardwareFlowControl_None;
+	USART_InitStruct.USART_Mode 				= USART_Mode_Rx | USART_Mode_Tx;
+	USART_OverSampling8Cmd(USART1, ENABLE);
+	USART_Init(USART1, &USART_InitStruct);
+	USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
+	USART_Cmd(USART1, ENABLE);
 }
 
 /*******************************************************************************
@@ -60,10 +60,10 @@ void USART1_NVIC_Configuration(void)
 		NVIC_InitTypeDef NVIC_InitStructure;
 	
     /* Enable the USART1 Interrupt */
-    NVIC_InitStructure.NVIC_IRQChannel 										= USART1_IRQn;
+    NVIC_InitStructure.NVIC_IRQChannel 						= USART1_IRQn;
     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority 	= 0;
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority 				= 0;
-    NVIC_InitStructure.NVIC_IRQChannelCmd 								= ENABLE;
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority 			= 0;
+    NVIC_InitStructure.NVIC_IRQChannelCmd 					= ENABLE;
     NVIC_Init(&NVIC_InitStructure);
 }
 
